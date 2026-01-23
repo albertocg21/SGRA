@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
       <header className="bg-blue-600 text-white p-4">
         <h1 className="text-3xl font-bold">SGRA - Sistema de Gestión de Reservas</h1>
       </header>
