@@ -1,9 +1,7 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import Button from '@/components/ui/Button';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+<<<<<<< HEAD
   const [reservas, setReservas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,4 +47,7 @@ export default function Home() {
       </main>
     </div>
   );
+=======
+  redirect('/login');
+>>>>>>> 769e367 (Primera version)
 }

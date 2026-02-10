@@ -15,12 +15,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Admin
         User::factory()->create([
-            'name' => 'root',
-            'email' => 'root@example.com',
-            'password' => bcrypt('root'),
+            'name' => 'Admin User',
+            'email' => 'admin@sgra.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+
+        // Teacher
+        User::factory()->create([
+            'name' => 'Teacher User',
+            'email' => 'teacher@sgra.com',
+            'password' => bcrypt('password'),
+            'role' => 'profesor',
+        ]);
+
+        // Resources
+        \App\Models\Recurso::create([
+            'name' => 'Aula 101',
+            'description' => 'Aula de Informática',
+            'type' => 'aula',
+            'capacity' => 30,
+            'location' => 'Planta 1',
+            'status' => 'active',
+        ]);
+
+        \App\Models\Recurso::create([
+            'name' => 'Proyector A',
+            'description' => 'Proyector portátil Epson',
+            'type' => 'material',
+            'status' => 'active',
         ]);
     }
 }
