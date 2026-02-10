@@ -2,15 +2,27 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Public Routes
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/reservas', function () {
-    return response()->json([
-        ['id' => 1, 'descripcion' => 'Reserva Sala A'],
-        ['id' => 2, 'descripcion' => 'Reserva Proyector'],
-        ['id' => 3, 'descripcion' => 'Reserva Portátil']
-    ]);
+// Protected Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'user']);
+
+    // Admin Resources CRUD
+    Route::apiResource('resources', ResourceController::class);
+
+    // Reservations
+    Route::get('/reservas', [ReservationController::class, 'index']);
+    Route::post('/reservas', [ReservationController::class, 'store']);
+    Route::delete('/reservas/{reserva}', [ReservationController::class, 'destroy']);
+
+    // Dashboard Stats (Admin)
+    Route::get('/dashboard/stats', [DashboardController::class, 'stats']);
 });
