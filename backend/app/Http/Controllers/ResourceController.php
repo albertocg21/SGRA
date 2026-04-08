@@ -18,6 +18,7 @@ class ResourceController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'type' => 'required|string',
             'capacity' => 'nullable|integer',
             'location' => 'nullable|string',
@@ -39,6 +40,7 @@ class ResourceController extends Controller
 
         $validated = $request->validate([
             'name' => 'string|max:255',
+            'description' => 'nullable|string',
             'type' => 'string',
             'capacity' => 'nullable|integer',
             'location' => 'nullable|string',

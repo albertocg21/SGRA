@@ -8,9 +8,29 @@ use Illuminate\Validation\ValidationException;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Reserva::with(['user:id,name', 'recurso:id,name'])->get();
+        $query = Reserva::with(['user:id,name', 'recurso:id,name,type']);
+
+        // If not admin, only show own reservations for "my bookings"
+        if ($request->query('mine') === 'true') {
+            $query->where('user_id', $request->user()->id);
+        }
+
+        return $query->orderBy('start_time', 'desc')->get()->map(function ($reserva) {
+            return [
+                'id' => $reserva->id,
+                'user_id' => $reserva->user_id,
+                'resource_id' => $reserva->resource_id,
+                'start_time' => $reserva->start_time,
+                'end_time' => $reserva->end_time,
+                'status' => $reserva->status,
+                'purpose' => $reserva->purpose,
+                'user' => $reserva->user,
+                'resource' => $reserva->recurso, // Map 'recurso' to 'resource' for frontend
+                'created_at' => $reserva->created_at,
+            ];
+        });
     }
 
     public function store(Request $request)
@@ -40,9 +60,10 @@ class ReservationController extends Controller
             ]);
         }
 
+        $validated['status'] = 'confirmed';
         $reserva = $request->user()->reservas()->create($validated);
 
-        return response()->json($reserva, 201);
+        return response()->json($reserva->load('recurso'), 201);
     }
 
     public function destroy(Request $request, Reserva $reserva)
