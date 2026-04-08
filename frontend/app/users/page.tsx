@@ -169,7 +169,7 @@ export default function UsersPage() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                {editingId ? 'Nueva Password (dejar vacio para mantener)' : 'Password'}
+                                {editingId ? 'Contraseña (opcional)' : 'Contraseña'}
                             </label>
                             <input
                                 type="password"
@@ -178,7 +178,7 @@ export default function UsersPage() {
                                 required={!editingId}
                                 minLength={6}
                                 className="block w-full border border-gray-300 rounded-lg shadow-sm p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder={editingId ? 'Sin cambios' : 'Minimo 6 caracteres'}
+                                placeholder={editingId ? 'Sin cambios' : 'Mínimo 6 caracteres'}
                             />
                         </div>
                         <div>
