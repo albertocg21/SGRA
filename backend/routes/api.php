@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 // Public Routes
 Route::post('/login', [AuthController::class, 'login']);
@@ -17,6 +18,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Admin Resources CRUD
     Route::apiResource('resources', ResourceController::class);
+
+    // Admin Users CRUD
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
     // Reservations
     Route::get('/reservas', [ReservationController::class, 'index']);
